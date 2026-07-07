@@ -1,5 +1,5 @@
-from .karacter import Karacter
-from .kinematrix import Kinematrix
+from ..classes.karacter import Karacter
+from ..classes.kinematrix import Kinematrix
 
 
 def create_motion(karacter: Karacter, frames_number: int) -> Kinematrix:
