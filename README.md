@@ -73,8 +73,7 @@ For a character model `Karacter` with $C$ degrees of freedom, the motion state i
 When applying a frame displacement $F \in \mathbb{Z}^C$ (`Kframe`), the transition updates the historical state and performs vectorized modular addition:
 
 $$oacc_k \leftarrow nacc_k \quad \forall k \in \{1, \dots, C\}$$
-
-$$nacc_k \leftarrow \left( nacc_k + \text{view\_as\_uint32}(F_k) \right) \pmod{2^{32}}$$
+$$nacc_k \leftarrow \left( nacc_k + \mathrm{view\_as\_uint32}(F_k) \right) \pmod{2^{32}}$$
 
 > [!WARNING]
 > The mathematical conversion from `int32` to `uint32` during `update()` uses bitwise casting (`view(np.uint32)`). Modulo-32 arithmetic behaves as unsigned overflow addition.
@@ -83,10 +82,8 @@ $$nacc_k \leftarrow \left( nacc_k + \text{view\_as\_uint32}(F_k) \right) \pmod{2
 
 The sign state indicator $sacc \in \{\text{True}, \text{False}\}^C$ records the direction of the transition. The difference is calculated in signed 32-bit representation:
 
-$$diff_k = \text{view\_as\_int32}\left( nacc_k - oacc_k \right)$$
-
+$$diff_k = \mathrm{view\_as\_int32}\left( nacc_k - oacc_k \right)$$
 $$sacc_k = \begin{cases} \text{True} & \text{if } diff_k \ge 0 \\ \text{False} & \text{if } diff_k < 0 \end{cases}$$
-
 ---
 
 ## 🛠️ API Reference
